@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="Benjamin&#39;s farmland">
 <meta property="og:description" content="123456let template = &apos;我是&amp;#123;&amp;#123;name&amp;#125;&amp;#125;，年龄&amp;#123;&amp;#123;age&amp;#125;&amp;#125;，性别&amp;#123;&amp;#123;sex&amp;#125;&amp;#125;&apos;;let data = &amp;#123;  name: &apos;姓名&apos;,  age: 18&amp;#125;render(template, data); // 我是姓名，年龄18，性别un">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-06T02:27:13.000Z">
+<meta property="og:updated_time" content="2018-06-06T02:32:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实现一个简单的模板引擎">
 <meta name="twitter:description" content="123456let template = &apos;我是&amp;#123;&amp;#123;name&amp;#125;&amp;#125;，年龄&amp;#123;&amp;#123;age&amp;#125;&amp;#125;，性别&amp;#123;&amp;#123;sex&amp;#125;&amp;#125;&apos;;let data = &amp;#123;  name: &apos;姓名&apos;,  age: 18&amp;#125;render(template, data); // 我是姓名，年龄18，性别un">
@@ -340,6 +340,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">template, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> reg = <span class="regexp">/\&#123;\&#123;(\w+)\&#125;\&#125;/</span> <span class="comment">// 模板字符串正则</span></span><br><span class="line">  <span class="keyword">if</span>(reg.test(template)) &#123; <span class="comment">// 判断模板里是否有模板字符串</span></span><br><span class="line">    <span class="keyword">const</span> name = reg.exec(template)[<span class="number">1</span>] <span class="comment">// 查找模板里一个个需要替换的模板字符串</span></span><br><span class="line">    template = template.replace(reg, data[name]) <span class="comment">// 渲染第一个模板字符串</span></span><br><span class="line">    <span class="keyword">return</span> render(template, data) <span class="comment">// 递归渲染并返回渲染后的结构</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> template <span class="comment">// 如果模板没有模板字符串直接返回</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>一行代码实现方式，需要熟悉replace()和正则非贪婪模式的使用</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">template, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> template.replace(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'&#123;&#123;(.*?)&#125;&#125;'</span>, <span class="string">'g'</span>), (match, key) =&gt; data[key.trim()])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考： <a href="https://mp.weixin.qq.com/s/lHiyoZ4J-OsT6L1gg-xvwQ" target="_blank" rel="noopener">一行代码实现模板引擎</a></p>
 
       
     </div>
@@ -374,7 +375,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/06/解析 URL Params 为对象/" rel="next" title="解析 URL Params 为对象">
+              <a href="/2018/06/05/解析 URL Params 为对象/" rel="next" title="解析 URL Params 为对象">
                 <i class="fa fa-chevron-left"></i> 解析 URL Params 为对象
               </a>
             
@@ -449,7 +450,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
