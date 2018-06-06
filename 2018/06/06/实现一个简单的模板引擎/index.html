@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="前端,程序,javascript," />
+  <meta name="keywords" content="前端,程序,js," />
 
 
 
@@ -95,20 +95,18 @@
 
 
 
-<meta name="description" content="1.排序去除相邻法">
-<meta name="keywords" content="前端,程序,javascript">
+<meta name="description" content="123456let template = &apos;我是&amp;#123;&amp;#123;name&amp;#125;&amp;#125;，年龄&amp;#123;&amp;#123;age&amp;#125;&amp;#125;，性别&amp;#123;&amp;#123;sex&amp;#125;&amp;#125;&apos;;let data = &amp;#123;  name: &apos;姓名&apos;,  age: 18&amp;#125;render(template, data); // 我是姓名，年龄18，性别un">
+<meta name="keywords" content="前端,程序,js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js数组去重">
-<meta property="og:url" content="http://shijunnan.com/2017/09/25/js数组去重/index.html">
+<meta property="og:title" content="实现一个简单的模板引擎">
+<meta property="og:url" content="http://shijunnan.com/2018/06/06/实现一个简单的模板引擎/index.html">
 <meta property="og:site_name" content="Benjamin&#39;s farmland">
-<meta property="og:description" content="1.排序去除相邻法">
+<meta property="og:description" content="123456let template = &apos;我是&amp;#123;&amp;#123;name&amp;#125;&amp;#125;，年龄&amp;#123;&amp;#123;age&amp;#125;&amp;#125;，性别&amp;#123;&amp;#123;sex&amp;#125;&amp;#125;&apos;;let data = &amp;#123;  name: &apos;姓名&apos;,  age: 18&amp;#125;render(template, data); // 我是姓名，年龄18，性别un">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/children.jpeg">
-<meta property="og:updated_time" content="2017-09-25T02:17:00.000Z">
+<meta property="og:updated_time" content="2018-06-06T02:27:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js数组去重">
-<meta name="twitter:description" content="1.排序去除相邻法">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/children.jpeg">
+<meta name="twitter:title" content="实现一个简单的模板引擎">
+<meta name="twitter:description" content="123456let template = &apos;我是&amp;#123;&amp;#123;name&amp;#125;&amp;#125;，年龄&amp;#123;&amp;#123;age&amp;#125;&amp;#125;，性别&amp;#123;&amp;#123;sex&amp;#125;&amp;#125;&apos;;let data = &amp;#123;  name: &apos;姓名&apos;,  age: 18&amp;#125;render(template, data); // 我是姓名，年龄18，性别un">
 
 
 
@@ -138,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://shijunnan.com/2017/09/25/js数组去重/"/>
+  <link rel="canonical" href="http://shijunnan.com/2018/06/06/实现一个简单的模板引擎/"/>
 
 
 
 
 
-  <title>js数组去重 | Benjamin's farmland</title>
+  <title>实现一个简单的模板引擎 | Benjamin's farmland</title>
   
 
 
@@ -251,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2017/09/25/js数组去重/">
+    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/06/06/实现一个简单的模板引擎/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shijunnan">
@@ -268,7 +266,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">js数组去重</h1>
+          <h1 class="post-title" itemprop="name headline">实现一个简单的模板引擎</h1>
         
 
         <div class="post-meta">
@@ -280,8 +278,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-25T09:59:29+08:00">
-                2017-09-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-06T10:06:33+08:00">
+                2018-06-06
               </time>
             
 
@@ -337,13 +335,11 @@
       
 
       
-        <p><img src="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/children.jpeg" alt=""></p>
-<p>1.排序去除相邻法</p>
-<a id="more"></a>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>]</span><br><span class="line"><span class="comment">//先排序，确保相同的item在相邻位置，减少循环次数</span></span><br><span class="line">arr.sort();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j &lt; arr.length;j++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(arr[j] == arr[j+<span class="number">1</span>])&#123;</span><br><span class="line">        arr.splice(j,<span class="number">1</span>);</span><br><span class="line">        j--; <span class="comment">// 请注意这边的j--，因为比较后相同的item被删除后需要再比对当前位置后其相邻之后一次</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2.数组比对法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">'1'</span>,<span class="string">'sw'</span>,<span class="string">'ss'</span>,<span class="string">'ws'</span>,<span class="string">'qq'</span>,<span class="string">'sw'</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> anotherArr = []</span><br><span class="line"></span><br><span class="line">arr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(anotherArr.indexOf(item) === <span class="number">-1</span>) &#123;</span><br><span class="line">        anotherArr.push(item)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>3.中转对象法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="number">1</span>,<span class="number">22</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">3</span>,[<span class="number">22</span>,<span class="number">22</span>], [<span class="number">22</span>,<span class="number">22</span>]]</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;</span><br><span class="line">arr.forEach(<span class="function">(<span class="params">i</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i)</span><br><span class="line">    obj[i] = i</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">Object</span>.values(obj)</span><br></pre></td></tr></table></figure></p>
-<p>4.数组下标法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="number">1</span>,<span class="number">22</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">3</span>,[<span class="number">22</span>,<span class="number">22</span>], [<span class="number">22</span>,<span class="number">22</span>]]</span><br><span class="line"><span class="keyword">var</span> arr2 = [arr[<span class="number">0</span>]]</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; arr.length; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(arr.indexOf(arr[i])===i) &#123;</span><br><span class="line">        arr2.push(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> template = <span class="string">'我是&#123;&#123;name&#125;&#125;，年龄&#123;&#123;age&#125;&#125;，性别&#123;&#123;sex&#125;&#125;'</span>;</span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">  name: <span class="string">'姓名'</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line">render(template, data); <span class="comment">// 我是姓名，年龄18，性别undefined</span></span><br></pre></td></tr></table></figure>
+<p>递归实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">template, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> reg = <span class="regexp">/\&#123;\&#123;(\w+)\&#125;\&#125;/</span> <span class="comment">// 模板字符串正则</span></span><br><span class="line">  <span class="keyword">if</span>(reg.test(template)) &#123; <span class="comment">// 判断模板里是否有模板字符串</span></span><br><span class="line">    <span class="keyword">const</span> name = reg.exec(template)[<span class="number">1</span>] <span class="comment">// 查找模板里一个个需要替换的模板字符串</span></span><br><span class="line">    template = template.replace(reg, data[name]) <span class="comment">// 渲染第一个模板字符串</span></span><br><span class="line">    <span class="keyword">return</span> render(template, data) <span class="comment">// 递归渲染并返回渲染后的结构</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> template <span class="comment">// 如果模板没有模板字符串直接返回</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一行代码实现方式，需要熟悉replace()和正则非贪婪模式的使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">template, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> template.replace(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'&#123;&#123;(.*?)&#125;&#125;'</span>, <span class="string">'g'</span>), (match, key) =&gt; data[key.trim()])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -365,7 +361,7 @@
           
             <a href="/tags/程序/" rel="tag"># 程序</a>
           
-            <a href="/tags/javascript/" rel="tag"># javascript</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
         </div>
       
@@ -378,8 +374,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/24/es6-promise的使用/" rel="next" title="es6 promise的使用">
-                <i class="fa fa-chevron-left"></i> es6 promise的使用
+              <a href="/2018/06/06/解析 URL Params 为对象/" rel="next" title="解析 URL Params 为对象">
+                <i class="fa fa-chevron-left"></i> 解析 URL Params 为对象
               </a>
             
           </div>
@@ -387,10 +383,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/27/web安全之xss/" rel="prev" title="web安全之xss">
-                web安全之xss <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

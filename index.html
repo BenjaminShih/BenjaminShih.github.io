@@ -245,6 +245,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/06/06/实现一个简单的模板引擎/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shijunnan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Benjamin's farmland">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/06/实现一个简单的模板引擎/" itemprop="url">实现一个简单的模板引擎</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-06T10:06:33+08:00">
+                2018-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> template = <span class="string">'我是&#123;&#123;name&#125;&#125;，年龄&#123;&#123;age&#125;&#125;，性别&#123;&#123;sex&#125;&#125;'</span>;</span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">  name: <span class="string">'姓名'</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line">render(template, data); <span class="comment">// 我是姓名，年龄18，性别undefined</span></span><br></pre></td></tr></table></figure>
+<p>递归实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">template, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> reg = <span class="regexp">/\&#123;\&#123;(\w+)\&#125;\&#125;/</span> <span class="comment">// 模板字符串正则</span></span><br><span class="line">  <span class="keyword">if</span>(reg.test(template)) &#123; <span class="comment">// 判断模板里是否有模板字符串</span></span><br><span class="line">    <span class="keyword">const</span> name = reg.exec(template)[<span class="number">1</span>] <span class="comment">// 查找模板里一个个需要替换的模板字符串</span></span><br><span class="line">    template = template.replace(reg, data[name]) <span class="comment">// 渲染第一个模板字符串</span></span><br><span class="line">    <span class="keyword">return</span> render(template, data) <span class="comment">// 递归渲染并返回渲染后的结构</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> template <span class="comment">// 如果模板没有模板字符串直接返回</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一行代码实现方式，需要熟悉replace()和正则非贪婪模式的使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">template, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> template.replace(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'&#123;&#123;(.*?)&#125;&#125;'</span>, <span class="string">'g'</span>), (match, key) =&gt; data[key.trim()])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/06/06/解析 URL Params 为对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1527,149 +1670,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2017/12/11/css之BFC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shijunnan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Benjamin's farmland">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/11/css之BFC/" itemprop="url">CSS中的BFC</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-11T13:37:51+08:00">
-                2017-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>说起BFC，一些不熟悉的童鞋往往会有两种情况：1.  用了BFC但是不知道有这回事，2.请教过大佬听过BFC大名然后CV了一段overflow: hidden解决了问题然后不刨根问底，笔者曾经也是其中的一员。思维不清晰肿么办？问谷歌娘呗～看了好多文章，知道自己没有过目不忘的本事，还是觉得要自己动手写写，一来加深印象，二来方便日后追溯，故撰此文。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/11/css之BFC/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1719,7 +1719,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
