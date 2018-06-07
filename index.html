@@ -245,7 +245,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/06/07/js深拷贝和浅拷贝/">
+    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/06/07/实现一个简单的event模块/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shijunnan">
@@ -264,7 +264,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/07/js深拷贝和浅拷贝/" itemprop="url">js深拷贝和浅拷贝</a></h1>
+                <a class="post-title-link" href="/2018/06/07/实现一个简单的event模块/" itemprop="url">实现一个简单的event模块</a></h1>
         
 
         <div class="post-meta">
@@ -276,7 +276,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-07T09:52:45+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-07T13:43:54+08:00">
                 2018-06-07
               </time>
             
@@ -335,30 +335,23 @@
       
         
           
-            <p>预备知识回顾，js数据类型：</p>
+            <p>其实这个问题要从另外一个问题引申</p>
 <blockquote>
-<p>基本数据类型：Undefined、Null、Boolean、Number、String、Symbol</p>
-<p>引用数据类型：Object</p>
+<p>Vue不同组件之间怎么通信?</p>
 </blockquote>
-<p>基本类型：存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配，是直接按值存放的，所以可以直接访问。</p>
-<p>引用类型：存放在堆内存中的对象。在栈内存中变量保存的是一个指针，指向对应在堆内存中的地址。当访问引用类型的时候，要先从栈中取出该对象的地址指针，然后再从堆内存中取得所需的数据。</p>
-<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><p>  浅拷贝对象只会被克隆最外部的一层,至于更深层的对象,则依然是通过引用指向同一块堆内存.</p>
-<blockquote>
-<p>注意与赋值号”=”的区别，赋值号只是将指针改变，其引用的仍然是同一个对象，而浅拷贝则是重新创建了新对象。</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> tempObj = &#123;&#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    tempObj[i] = obj[i]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> tempObj</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 被拷贝的对象</span></span><br><span class="line"><span class="keyword">const</span> oldObj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: &#123; <span class="attr">c</span>: <span class="number">1</span> &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newObj = shallowClone(oldObj)</span><br><span class="line"></span><br><span class="line">oldObj.a = <span class="number">2</span></span><br><span class="line">oldObj.b.c = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(newObj)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 结果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> &#123;</span></span><br><span class="line"><span class="comment">   a:1</span></span><br><span class="line"><span class="comment">   b:&#123;c: 2&#125;</span></span><br><span class="line"><span class="comment"> &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<p>另外，Object.assign()也可以实现浅拷贝</p>
-<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><h3 id="1-JSON-parse方法"><a href="#1-JSON-parse方法" class="headerlink" title="1.JSON.parse方法"></a>1.JSON.parse方法</h3><blockquote>
-<p>const newObj = JSON.parse(JSON.stringify(oldObj));</p>
-</blockquote>
-<p>这是一个比较简单且常用的深拷贝方法，有许多坑在里面</p>
 <ol>
-<li>无法实现对Function，RegExp等特殊对象的拷贝</li>
-<li>会丢失对象的constructor属性，所有的构造函数都会指向Object</li>
-<li>如果对象有循环引用就会报错</li>
+<li>$dispatch(已经废除)和$broadcast(已经废除)</li>
+<li>父子组件用Props通信</li>
+<li>简单项目非父子组件用Event Bus通信</li>
+<li>复杂项目用Vuex全局状态管理库通信</li>
 </ol>
-<h3 id="2-自定义深拷贝函数"><a href="#2-自定义深拷贝函数" class="headerlink" title="2. 自定义深拷贝函数"></a>2. 自定义深拷贝函数</h3><p>拷贝的时候判断一下属性值的类型，如果是对象，我们递归调用深拷贝函数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deepCopy = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> obj !== <span class="string">'object'</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">var</span> newObj = obj <span class="keyword">instanceof</span> <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj.hasOwnProperty(key)) &#123;</span><br><span class="line">            newObj[key] = <span class="keyword">typeof</span> obj[key] === <span class="string">'object'</span> ? deepCopy(obj[key]) : obj[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>vue有一个event bus库，node中有一个event模块，都是比较典型的<strong>发布订阅模式</strong>应用</p>
+<p>我们实现其核心方法来窥见其大致原理</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventEmeitter</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>._events = <span class="keyword">this</span>._events || <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听与触发</span></span><br><span class="line">EventEmeitter.prototype.emit = <span class="function"><span class="keyword">function</span>(<span class="params">type, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> handler</span><br><span class="line">  handler = <span class="keyword">this</span>._events.get(type)</span><br><span class="line">  <span class="keyword">if</span> (args.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    handler.apply(<span class="keyword">this</span>, args)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    handler.call(args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 监听名为type的事件</span></span><br><span class="line">EventEmeitter.prototype.addListener = <span class="function"><span class="keyword">function</span>(<span class="params">type, fn</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 讲type事件以及对应的fn放入this.events中存储</span></span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>._events.get(type)) &#123;</span><br><span class="line">    <span class="keyword">this</span>._events.set(type, fn)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实践：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实例化</span></span><br><span class="line"><span class="keyword">const</span> emitter = <span class="keyword">new</span> EventEmeitter();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听一个名为arson的事件对应一个回调函数</span></span><br><span class="line">emitter.addListener(<span class="string">'console'</span>, num =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`console <span class="subst">$&#123;num&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们触发arson事件,发现回调成功执行</span></span><br><span class="line">emitter.emit(<span class="string">'console'</span>, <span class="number">666</span>); <span class="comment">// 666</span></span><br></pre></td></tr></table></figure>
+
           
         
       
@@ -789,6 +782,167 @@
 <p>实现方法，注意边界条件</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">domNode</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!domNode) <span class="keyword">return</span> <span class="built_in">document</span>.createDocumentFragment()</span><br><span class="line">  <span class="keyword">let</span> $el</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> domNode === <span class="string">'object'</span>) &#123;</span><br><span class="line">    $el = <span class="built_in">document</span>.createElement(domNode.tagName)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(domNode.hasOwnProperty(<span class="string">'props'</span>)) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> domNode.props) &#123;</span><br><span class="line">        $el.setAttribute(key, domNode.props[key])</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (domNode.hasOwnProperty(<span class="string">'children'</span>)) &#123;</span><br><span class="line">      domNode.children.forEach(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> $childEl = render(val)</span><br><span class="line">        $el.appendChild($childEl)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      $el = <span class="built_in">document</span>.createTextNode(domNode)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> $el</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/05/01/js深拷贝和浅拷贝/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shijunnan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Benjamin's farmland">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/01/js深拷贝和浅拷贝/" itemprop="url">js深拷贝和浅拷贝</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-01T09:52:45+08:00">
+                2018-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>预备知识回顾，js数据类型：</p>
+<blockquote>
+<p>基本数据类型：Undefined、Null、Boolean、Number、String、Symbol</p>
+<p>引用数据类型：Object</p>
+</blockquote>
+<p>基本类型：存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配，是直接按值存放的，所以可以直接访问。</p>
+<p>引用类型：存放在堆内存中的对象。在栈内存中变量保存的是一个指针，指向对应在堆内存中的地址。当访问引用类型的时候，要先从栈中取出该对象的地址指针，然后再从堆内存中取得所需的数据。</p>
+<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><p>  浅拷贝对象只会被克隆最外部的一层,至于更深层的对象,则依然是通过引用指向同一块堆内存.</p>
+<blockquote>
+<p>注意与赋值号”=”的区别，赋值号只是将指针改变，其引用的仍然是同一个对象，而浅拷贝则是重新创建了新对象。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> tempObj = &#123;&#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    tempObj[i] = obj[i]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> tempObj</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 被拷贝的对象</span></span><br><span class="line"><span class="keyword">const</span> oldObj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: &#123; <span class="attr">c</span>: <span class="number">1</span> &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newObj = shallowClone(oldObj)</span><br><span class="line"></span><br><span class="line">oldObj.a = <span class="number">2</span></span><br><span class="line">oldObj.b.c = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(newObj)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 结果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> &#123;</span></span><br><span class="line"><span class="comment">   a:1</span></span><br><span class="line"><span class="comment">   b:&#123;c: 2&#125;</span></span><br><span class="line"><span class="comment"> &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>另外，Object.assign()也可以实现浅拷贝</p>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><h3 id="1-JSON-parse方法"><a href="#1-JSON-parse方法" class="headerlink" title="1.JSON.parse方法"></a>1.JSON.parse方法</h3><blockquote>
+<p>const newObj = JSON.parse(JSON.stringify(oldObj));</p>
+</blockquote>
+<p>这是一个比较简单且常用的深拷贝方法，有许多坑在里面</p>
+<ol>
+<li>无法实现对Function，RegExp等特殊对象的拷贝</li>
+<li>会丢失对象的constructor属性，所有的构造函数都会指向Object</li>
+<li>如果对象有循环引用就会报错</li>
+</ol>
+<h3 id="2-自定义深拷贝函数"><a href="#2-自定义深拷贝函数" class="headerlink" title="2. 自定义深拷贝函数"></a>2. 自定义深拷贝函数</h3><p>拷贝的时候判断一下属性值的类型，如果是对象，我们递归调用深拷贝函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deepCopy = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> obj !== <span class="string">'object'</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">var</span> newObj = obj <span class="keyword">instanceof</span> <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj.hasOwnProperty(key)) &#123;</span><br><span class="line">            newObj[key] = <span class="keyword">typeof</span> obj[key] === <span class="string">'object'</span> ? deepCopy(obj[key]) : obj[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1542,153 +1696,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/04/04/实现Promise/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shijunnan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Benjamin's farmland">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/04/实现Promise/" itemprop="url">实现Promise</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-04T10:42:46+08:00">
-                2018-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Promise 有几个 重要的点：</p>
-<p>1、promise有三种状态，等待（pending）、已完成（fulfilled）、已拒绝（rejected）</p>
-<p>2、promise的状态只能从“等待”转到“完成”或者“拒绝”，不能逆向转换，同时“完成”和“拒绝”也不能相互转换</p>
-<p>3、promise必须有一个then方法，而且要返回一个promise，供then的链式调用，也就是可thenable的</p>
-<p>4、then接受俩个回调(成功与拒绝),在相应的状态转变时触发，回调可返回promise，等待此promise被resolved后，继续触发then链</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/04/实现Promise/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1738,7 +1745,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

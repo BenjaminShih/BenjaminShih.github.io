@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="前端,程序,css," />
+  <meta name="keywords" content="前端,程序,js," />
 
 
 
@@ -95,20 +95,18 @@
 
 
 
-<meta name="description" content="以前在做PC端开发的时候，经常会使用position: fix来做一些固定于窗口位置的一些页面功能，比如全局居中的提示框和模态框，或者是页头页脚等等~但是在移动端做的时候长了就会发现，我们要在一些场合避免使用fix布局，就目前来看，主要有以下两个原因：">
-<meta name="keywords" content="前端,程序,css">
+<meta name="description" content="其实这个问题要从另外一个问题引申  Vue不同组件之间怎么通信?   $dispatch(已经废除)和$broadcast(已经废除) 父子组件用Props通信 简单项目非父子组件用Event Bus通信 复杂项目用Vuex全局状态管理库通信  vue有一个event bus库，node中有一个event模块，都是比较典型的发布订阅模式应用 我们实现其核心方法来窥见其大致原理 123456// 初">
+<meta name="keywords" content="前端,程序,js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="移动端列表表头fix布局的改进">
-<meta property="og:url" content="http://shijunnan.com/2017/10/12/移动端列表表头fix布局的改进/index.html">
+<meta property="og:title" content="实现一个简单的event模块">
+<meta property="og:url" content="http://shijunnan.com/2018/06/07/实现一个简单的event模块/index.html">
 <meta property="og:site_name" content="Benjamin&#39;s farmland">
-<meta property="og:description" content="以前在做PC端开发的时候，经常会使用position: fix来做一些固定于窗口位置的一些页面功能，比如全局居中的提示框和模态框，或者是页头页脚等等~但是在移动端做的时候长了就会发现，我们要在一些场合避免使用fix布局，就目前来看，主要有以下两个原因：">
+<meta property="og:description" content="其实这个问题要从另外一个问题引申  Vue不同组件之间怎么通信?   $dispatch(已经废除)和$broadcast(已经废除) 父子组件用Props通信 简单项目非父子组件用Event Bus通信 复杂项目用Vuex全局状态管理库通信  vue有一个event bus库，node中有一个event模块，都是比较典型的发布订阅模式应用 我们实现其核心方法来窥见其大致原理 123456// 初">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/little-cat.jpeg">
-<meta property="og:updated_time" content="2017-10-16T02:28:49.000Z">
+<meta property="og:updated_time" content="2018-06-07T06:30:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="移动端列表表头fix布局的改进">
-<meta name="twitter:description" content="以前在做PC端开发的时候，经常会使用position: fix来做一些固定于窗口位置的一些页面功能，比如全局居中的提示框和模态框，或者是页头页脚等等~但是在移动端做的时候长了就会发现，我们要在一些场合避免使用fix布局，就目前来看，主要有以下两个原因：">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/little-cat.jpeg">
+<meta name="twitter:title" content="实现一个简单的event模块">
+<meta name="twitter:description" content="其实这个问题要从另外一个问题引申  Vue不同组件之间怎么通信?   $dispatch(已经废除)和$broadcast(已经废除) 父子组件用Props通信 简单项目非父子组件用Event Bus通信 复杂项目用Vuex全局状态管理库通信  vue有一个event bus库，node中有一个event模块，都是比较典型的发布订阅模式应用 我们实现其核心方法来窥见其大致原理 123456// 初">
 
 
 
@@ -138,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://shijunnan.com/2017/10/12/移动端列表表头fix布局的改进/"/>
+  <link rel="canonical" href="http://shijunnan.com/2018/06/07/实现一个简单的event模块/"/>
 
 
 
 
 
-  <title>移动端列表表头fix布局的改进 | Benjamin's farmland</title>
+  <title>实现一个简单的event模块 | Benjamin's farmland</title>
   
 
 
@@ -251,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2017/10/12/移动端列表表头fix布局的改进/">
+    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/06/07/实现一个简单的event模块/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shijunnan">
@@ -268,7 +266,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">移动端列表表头fix布局的改进</h1>
+          <h1 class="post-title" itemprop="name headline">实现一个简单的event模块</h1>
         
 
         <div class="post-meta">
@@ -280,8 +278,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T20:10:56+08:00">
-                2017-10-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-07T13:43:54+08:00">
+                2018-06-07
               </time>
             
 
@@ -337,21 +335,22 @@
       
 
       
-        <p><img src="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/little-cat.jpeg" alt=""></p>
-<p>以前在做PC端开发的时候，经常会使用position: fix来做一些固定于窗口位置的一些页面功能，比如全局居中的提示框和模态框，或者是页头页脚等等~但是在移动端做的时候长了就会发现，我们要在一些场合避免使用fix布局，就目前来看，主要有以下两个原因：<br><a id="more"></a></p>
+        <p>其实这个问题要从另外一个问题引申</p>
+<blockquote>
+<p>Vue不同组件之间怎么通信?</p>
+</blockquote>
 <ol>
-<li>公司项目曾经使用h5套壳app，在ios上发现，如果列表页中使用fix固表头，那么有有一定几率会造成页面元素<br>无法点击甚至卡死的现象</li>
-<li>iphone6的微信中，表头使用fix布局后在滑动列表的过程中点击表头，很大概率会造成表头消失（移动到其他位置），<br>但是下拉或者刷新页面重新渲染页面后就会复位的现象</li>
+<li>$dispatch(已经废除)和$broadcast(已经废除)</li>
+<li>父子组件用Props通信</li>
+<li>简单项目非父子组件用Event Bus通信</li>
+<li>复杂项目用Vuex全局状态管理库通信</li>
 </ol>
-<p>这个时候，我们就要祭出我们的神器，使用flex布局来代替原来的fix布局，整个过程的核心思路为：</p>
-<ol>
-<li>将表头和列表视作两大部分，它们的父元素设置display: flex，总高度为视口高度100vh，<br>并且设置布局方向为垂直flex-direction: column, 子元素不伸缩  flex-shrink: 0</li>
-<li>将表头固定高度</li>
-<li>列表主题部分设置撑开父元素高度除了表头固定高度的剩余全部高度，然后内部滚动overflow: auto, 别忘记设置IOS上流畅滑动属性-webkit-overflow-scrolling: touch</li>
-</ol>
-<p>done~</p>
-<p>源码如下：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">height</span> <span class="number">100vh</span></span><br><span class="line">  <span class="attribute">display</span> flex</span><br><span class="line">  <span class="attribute">flex-direction</span> column</span><br><span class="line">  <span class="attribute">flex-shrink</span> <span class="number">0</span></span><br><span class="line">  <span class="selector-class">.list-header</span> &#123;</span><br><span class="line">    <span class="attribute">height</span> <span class="number">88px</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.list-body</span> &#123;</span><br><span class="line">    <span class="attribute">flex</span> <span class="number">1</span></span><br><span class="line">    <span class="attribute">overflow</span> auto</span><br><span class="line">    -webkit-<span class="attribute">overflow</span>-scrolling touch</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>vue有一个event bus库，node中有一个event模块，都是比较典型的<strong>发布订阅模式</strong>应用</p>
+<p>我们实现其核心方法来窥见其大致原理</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventEmeitter</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>._events = <span class="keyword">this</span>._events || <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听与触发</span></span><br><span class="line">EventEmeitter.prototype.emit = <span class="function"><span class="keyword">function</span>(<span class="params">type, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> handler</span><br><span class="line">  handler = <span class="keyword">this</span>._events.get(type)</span><br><span class="line">  <span class="keyword">if</span> (args.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    handler.apply(<span class="keyword">this</span>, args)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    handler.call(args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 监听名为type的事件</span></span><br><span class="line">EventEmeitter.prototype.addListener = <span class="function"><span class="keyword">function</span>(<span class="params">type, fn</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 讲type事件以及对应的fn放入this.events中存储</span></span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>._events.get(type)) &#123;</span><br><span class="line">    <span class="keyword">this</span>._events.set(type, fn)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实践：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实例化</span></span><br><span class="line"><span class="keyword">const</span> emitter = <span class="keyword">new</span> EventEmeitter();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听一个名为arson的事件对应一个回调函数</span></span><br><span class="line">emitter.addListener(<span class="string">'console'</span>, num =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`console <span class="subst">$&#123;num&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们触发arson事件,发现回调成功执行</span></span><br><span class="line">emitter.emit(<span class="string">'console'</span>, <span class="number">666</span>); <span class="comment">// 666</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -373,7 +372,7 @@
           
             <a href="/tags/程序/" rel="tag"># 程序</a>
           
-            <a href="/tags/css/" rel="tag"># css</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
         </div>
       
@@ -386,8 +385,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/28/js-typeof详解/" rel="next" title="js typeof详解">
-                <i class="fa fa-chevron-left"></i> js typeof详解
+              <a href="/2018/06/06/实现一个简单的模板引擎/" rel="next" title="实现一个简单的模板引擎">
+                <i class="fa fa-chevron-left"></i> 实现一个简单的模板引擎
               </a>
             
           </div>
@@ -395,10 +394,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/16/flex布局属性详解之容器属性篇/" rel="prev" title="flex布局属性详解之容器属性篇">
-                flex布局属性详解之容器属性篇 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
