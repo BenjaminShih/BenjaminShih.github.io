@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="程序,前端,安全," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -95,20 +95,17 @@
 
 
 
-<meta name="description" content="CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。">
-<meta name="keywords" content="程序,前端,安全">
+<meta name="description" content="预备知识回顾，js数据类型：  基本数据类型：Undefined、Null、Boolean、Number、String、Symbol 引用数据类型：Object  基本类型：存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配，是直接按值存放的，所以可以直接访问。 引用类型：存放在堆内存中的对象。在栈内存中变量保存的是一个指针，指向对应在堆内存中的地址。当访问引用类型的时候，要先从栈中取">
 <meta property="og:type" content="article">
-<meta property="og:title" content="web安全之csrf">
-<meta property="og:url" content="http://shijunnan.com/2018/04/08/web安全之csrf/index.html">
+<meta property="og:title" content="js深拷贝和浅拷贝">
+<meta property="og:url" content="http://shijunnan.com/2018/06/07/js深拷贝和浅拷贝/index.html">
 <meta property="og:site_name" content="Benjamin&#39;s farmland">
-<meta property="og:description" content="CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。">
+<meta property="og:description" content="预备知识回顾，js数据类型：  基本数据类型：Undefined、Null、Boolean、Number、String、Symbol 引用数据类型：Object  基本类型：存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配，是直接按值存放的，所以可以直接访问。 引用类型：存放在堆内存中的对象。在栈内存中变量保存的是一个指针，指向对应在堆内存中的地址。当访问引用类型的时候，要先从栈中取">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/csrf.png">
-<meta property="og:updated_time" content="2018-04-08T05:56:50.000Z">
+<meta property="og:updated_time" content="2018-06-07T03:20:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="web安全之csrf">
-<meta name="twitter:description" content="CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/csrf.png">
+<meta name="twitter:title" content="js深拷贝和浅拷贝">
+<meta name="twitter:description" content="预备知识回顾，js数据类型：  基本数据类型：Undefined、Null、Boolean、Number、String、Symbol 引用数据类型：Object  基本类型：存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配，是直接按值存放的，所以可以直接访问。 引用类型：存放在堆内存中的对象。在栈内存中变量保存的是一个指针，指向对应在堆内存中的地址。当访问引用类型的时候，要先从栈中取">
 
 
 
@@ -138,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://shijunnan.com/2018/04/08/web安全之csrf/"/>
+  <link rel="canonical" href="http://shijunnan.com/2018/06/07/js深拷贝和浅拷贝/"/>
 
 
 
 
 
-  <title>web安全之csrf | Benjamin's farmland</title>
+  <title>js深拷贝和浅拷贝 | Benjamin's farmland</title>
   
 
 
@@ -251,7 +248,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/04/08/web安全之csrf/">
+    <link itemprop="mainEntityOfPage" href="http://shijunnan.com/2018/06/07/js深拷贝和浅拷贝/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shijunnan">
@@ -268,7 +265,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">web安全之csrf</h1>
+          <h1 class="post-title" itemprop="name headline">js深拷贝和浅拷贝</h1>
         
 
         <div class="post-meta">
@@ -280,8 +277,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-08T13:14:03+08:00">
-                2018-04-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-07T09:52:45+08:00">
+                2018-06-07
               </time>
             
 
@@ -337,26 +334,30 @@
       
 
       
-        <p><img src="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/csrf.png" alt=""></p>
-<p>CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。</p>
-<a id="more"></a>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>从上图可以看出，要完成一次CSRF攻击，受害者必须依次完成两个步骤：</p>
-<p>1.登录受信任网站A，并在本地生成Cookie。</p>
-<p>2.在不登出A的情况下，访问危险网站B。</p>
-<p>可以得知CSRF攻击是源于WEB的隐式身份验证机制！WEB的身份验证机制虽然可以保证一个请求是来自于某个用户的浏览器，但却无法保证该请求是用户批准发送的</p>
-<h2 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h2><ol>
-<li><p>验证码<br>每个请求使用验证码，这个方案是完美的，因为要多次输入验证码，所以用户友好性很差，所以不适合实际运用</p>
-</li>
-<li><p>Refer验证<br>根据 HTTP 协议，在 HTTP 头中有一个字段叫 Referer，它记录了该 HTTP 请求的来源地址。如果请求来自非安全域名，则一律过滤。但是这方法太依赖浏览器，不能保证浏览器没有安全漏洞，同时也不能保证不能修改某些浏览器的refer</p>
-</li>
-<li><p>Token验证</p>
-</li>
-</ol>
-<p>HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。</p>
+        <p>预备知识回顾，js数据类型：</p>
+<blockquote>
+<p>基本数据类型：Undefined、Null、Boolean、Number、String、Symbol</p>
+<p>引用数据类型：Object</p>
+</blockquote>
+<p>基本类型：存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配，是直接按值存放的，所以可以直接访问。</p>
+<p>引用类型：存放在堆内存中的对象。在栈内存中变量保存的是一个指针，指向对应在堆内存中的地址。当访问引用类型的时候，要先从栈中取出该对象的地址指针，然后再从堆内存中取得所需的数据。</p>
+<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><p>  浅拷贝对象只会被克隆最外部的一层,至于更深层的对象,则依然是通过引用指向同一块堆内存.</p>
+<blockquote>
+<p>注意与赋值号”=”的区别，赋值号只是将指针改变，其引用的仍然是同一个对象，而浅拷贝则是重新创建了新对象。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> tempObj = &#123;&#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    tempObj[i] = obj[i]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> tempObj</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 被拷贝的对象</span></span><br><span class="line"><span class="keyword">const</span> oldObj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: &#123; <span class="attr">c</span>: <span class="number">1</span> &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newObj = shallowClone(oldObj)</span><br><span class="line"></span><br><span class="line">oldObj.a = <span class="number">2</span></span><br><span class="line">oldObj.b.c = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(newObj)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 结果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> &#123;</span></span><br><span class="line"><span class="comment">   a:1</span></span><br><span class="line"><span class="comment">   b:&#123;c: 2&#125;</span></span><br><span class="line"><span class="comment"> &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>另外，Object.assign()也可以实现浅拷贝</p>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><h3 id="1-JSON-parse方法"><a href="#1-JSON-parse方法" class="headerlink" title="1.JSON.parse方法"></a>1.JSON.parse方法</h3><blockquote>
+<p>const newObj = JSON.parse(JSON.stringify(oldObj));</p>
+</blockquote>
+<p>这是一个比较简单且常用的深拷贝方法，有许多坑在里面</p>
 <ol>
-<li>隐藏令牌<br>将独有的令牌包含在一个隐藏字段中。 这将使得该令牌通过 HTTP 请求体发送,避免其包含在 URL 中从而被暴露出来。该独有令牌同样可以包含在 URL 中或作为一个 URL 参数。 但是这种方法的巨大风险在于:URL 会暴露给攻击者, 这样秘密令牌也会被泄漏。</li>
+<li>无法实现对Function，RegExp等特殊对象的拷贝</li>
+<li>会丢失对象的constructor属性，所有的构造函数都会指向Object</li>
+<li>如果对象有循环引用就会报错</li>
 </ol>
-
+<h3 id="2-自定义深拷贝函数"><a href="#2-自定义深拷贝函数" class="headerlink" title="2. 自定义深拷贝函数"></a>2. 自定义深拷贝函数</h3><p>拷贝的时候判断一下属性值的类型，如果是对象，我们递归调用深拷贝函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deepCopy = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> obj !== <span class="string">'object'</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">var</span> newObj = obj <span class="keyword">instanceof</span> <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj.hasOwnProperty(key)) &#123;</span><br><span class="line">            newObj[key] = <span class="keyword">typeof</span> obj[key] === <span class="string">'object'</span> ? deepCopy(obj[key]) : obj[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -371,16 +372,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/程序/" rel="tag"># 程序</a>
-          
-            <a href="/tags/前端/" rel="tag"># 前端</a>
-          
-            <a href="/tags/安全/" rel="tag"># 安全</a>
-          
-        </div>
-      
 
       
       
@@ -390,8 +381,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/04/实现Promise/" rel="next" title="实现Promise">
-                <i class="fa fa-chevron-left"></i> 实现Promise
+              <a href="/2018/06/06/实现一个简单的模板引擎/" rel="next" title="实现一个简单的模板引擎">
+                <i class="fa fa-chevron-left"></i> 实现一个简单的模板引擎
               </a>
             
           </div>
@@ -399,10 +390,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/12/手写parseInt/" rel="prev" title="手写parseInt">
-                手写parseInt <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -526,7 +513,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御"><span class="nav-number">2.</span> <span class="nav-text">防御</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浅拷贝"><span class="nav-number">1.</span> <span class="nav-text">浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深拷贝"><span class="nav-number">2.</span> <span class="nav-text">深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-JSON-parse方法"><span class="nav-number">2.1.</span> <span class="nav-text">1.JSON.parse方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-自定义深拷贝函数"><span class="nav-number">2.2.</span> <span class="nav-text">2. 自定义深拷贝函数</span></a></li></ol></li></ol></div>
             
 
           </div>
