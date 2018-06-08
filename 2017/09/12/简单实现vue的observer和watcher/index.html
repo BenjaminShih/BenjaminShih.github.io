@@ -104,7 +104,7 @@
 <meta property="og:description" content="非庖丁瞎解牛系列～ ＝。＝ 在日常项目开发的时候，我们将js对象传给vue实例中的data选项，来作为其更新视图的基础，事实上是vue将会遍历它的属性，用Object.defineProperty 设置它们的 get/set，从而让 data 的属性能够响应数据变化：">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/cat-watch.jpeg">
-<meta property="og:updated_time" content="2017-09-14T05:01:05.000Z">
+<meta property="og:updated_time" content="2018-06-08T01:58:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单实现vue的observer和watcher">
 <meta name="twitter:description" content="非庖丁瞎解牛系列～ ＝。＝ 在日常项目开发的时候，我们将js对象传给vue实例中的data选项，来作为其更新视图的基础，事实上是vue将会遍历它的属性，用Object.defineProperty 设置它们的 get/set，从而让 data 的属性能够响应数据变化：">
@@ -340,7 +340,7 @@
         <p><img src="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/cat-watch.jpeg" alt=""><br>非庖丁瞎解牛系列～ ＝。＝</p>
 <p>在日常项目开发的时候，我们将js对象传给vue实例中的data选项，来作为其更新视图的基础，事实上是vue将会遍历它的属性，用Object.defineProperty 设置它们的 get/set，从而让 data 的属性能够响应数据变化：</p>
 <a id="more"></a>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(obj, name, &#123;</span><br><span class="line">  <span class="comment">// 获取值的时候先置入vm的_data属性对象中</span></span><br><span class="line">  get() &#123;</span><br><span class="line">  get() &#123;</span><br><span class="line">    <span class="comment">// 赋值的时候显示的特性</span></span><br><span class="line">  &#125;,</span><br><span class="line">  set() &#123;</span><br><span class="line">    <span class="comment">// 值变化的时候可以做点什么</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(obj, name, &#123;</span><br><span class="line">  <span class="comment">// 获取值的时候先置入vm的_data属性对象中</span></span><br><span class="line">  get() &#123;</span><br><span class="line">    <span class="comment">// 赋值的时候显示的特性</span></span><br><span class="line">  &#125;,</span><br><span class="line">  set() &#123;</span><br><span class="line">    <span class="comment">// 值变化的时候可以做点什么</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>接下来可以利用其实现一个最简单的watcher.既然要绑定数据执行回调函数，data属性和callback属性是少不了的，我们定义一个vm对象(vue中vm对象作为根实例，是全局的)：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; _data 用于存放data值</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; $data data原始数据对象，当前值</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; callback 回调函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> vm = &#123; <span class="attr">_data</span>: &#123;&#125;, <span class="attr">$data</span>: &#123;&#125;, <span class="attr">callback</span>: &#123;&#125; &#125;</span><br></pre></td></tr></table></figure>
 <p>在设置值的时候，如果检测到当前值与存储在_data中的对应值发生变化，则将值更新，并执行回调函数，利用Object.definedProperty方法中的get() &amp; set() 我们很快就可以实现这个功能～</p>
@@ -396,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/11/CSS中的BFC/" rel="next" title="CSS中的BFC">
-                <i class="fa fa-chevron-left"></i> CSS中的BFC
+              <a href="/2017/09/08/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
