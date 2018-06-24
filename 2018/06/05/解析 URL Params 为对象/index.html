@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://shijunnan.com">
   <title>解析 URL Params 为对象 | Benjamin&#39;s farmland</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="尽可能的全面正确的解析一个任意 url 的所有参数为 Object，注意边界条件的处理。">
+  <meta name="description" content="123456789let url = &apos;http://www.domain.com/?user=anonymous&amp;amp;id=123&amp;amp;id=456&amp;amp;city=%E5%8C%97%E4%BA%AC&amp;amp;enabled&apos;;parseParam(url)/* 结果&amp;#123; user: &apos;anonymous&apos;,  id: [ 123, 456 ], // 重复出现的 key 要">
 <meta name="keywords" content="程序,前端,js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解析 URL Params 为对象">
 <meta property="og:url" content="http://shijunnan.com/2018/06/05/解析 URL Params 为对象/index.html">
 <meta property="og:site_name" content="Benjamin&#39;s farmland">
-<meta property="og:description" content="尽可能的全面正确的解析一个任意 url 的所有参数为 Object，注意边界条件的处理。">
+<meta property="og:description" content="123456789let url = &apos;http://www.domain.com/?user=anonymous&amp;amp;id=123&amp;amp;id=456&amp;amp;city=%E5%8C%97%E4%BA%AC&amp;amp;enabled&apos;;parseParam(url)/* 结果&amp;#123; user: &apos;anonymous&apos;,  id: [ 123, 456 ], // 重复出现的 key 要">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-06T02:30:15.000Z">
+<meta property="og:updated_time" content="2018-06-11T09:21:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解析 URL Params 为对象">
-<meta name="twitter:description" content="尽可能的全面正确的解析一个任意 url 的所有参数为 Object，注意边界条件的处理。">
+<meta name="twitter:description" content="123456789let url = &apos;http://www.domain.com/?user=anonymous&amp;amp;id=123&amp;amp;id=456&amp;amp;city=%E5%8C%97%E4%BA%AC&amp;amp;enabled&apos;;parseParam(url)/* 结果&amp;#123; user: &apos;anonymous&apos;,  id: [ 123, 456 ], // 重复出现的 key 要">
   
     <link rel="alternative" href="/atom.xml" title="Benjamin&#39;s farmland" type="application/atom+xml">
   
@@ -178,7 +178,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>尽可能的全面正确的解析一个任意 url 的所有参数为 Object，注意边界条件的处理。<br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="string">'http://www.domain.com/?user=anonymous&amp;id=123&amp;id=456&amp;city=%E5%8C%97%E4%BA%AC&amp;enabled'</span>;</span><br><span class="line">parseParam(url)</span><br><span class="line"><span class="comment">/* 结果</span></span><br><span class="line"><span class="comment">&#123; user: 'anonymous',</span></span><br><span class="line"><span class="comment">  id: [ 123, 456 ], // 重复出现的 key 要组装成数组，能被转成数字的就转成数字类型</span></span><br><span class="line"><span class="comment">  city: '北京', // 中文需解码</span></span><br><span class="line"><span class="comment">  enabled: true, // 未指定值得 key 约定为 true</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="string">'http://www.domain.com/?user=anonymous&amp;id=123&amp;id=456&amp;city=%E5%8C%97%E4%BA%AC&amp;enabled'</span>;</span><br><span class="line">parseParam(url)</span><br><span class="line"><span class="comment">/* 结果</span></span><br><span class="line"><span class="comment">&#123; user: 'anonymous',</span></span><br><span class="line"><span class="comment">  id: [ 123, 456 ], // 重复出现的 key 要组装成数组，能被转成数字的就转成数字类型</span></span><br><span class="line"><span class="comment">  city: '北京', // 中文需解码</span></span><br><span class="line"><span class="comment">  enabled: true, // 未指定值得 key 约定为 true</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseParam</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> paramsStr = <span class="regexp">/.+\?(.+)$/</span>.exec(url)[<span class="number">1</span>]; <span class="comment">// 将 ? 后面的字符串取出来</span></span><br><span class="line">  <span class="keyword">const</span> paramsArr = paramsStr.split(<span class="string">'&amp;'</span>); <span class="comment">// 将字符串以 &amp; 分割后存到数组中</span></span><br><span class="line">  <span class="keyword">let</span> paramsObj = &#123;&#125;;</span><br><span class="line">  <span class="comment">// 将 params 存到对象中</span></span><br><span class="line">  paramsArr.forEach(<span class="function"><span class="params">param</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/=/</span>.test(param)) &#123; <span class="comment">// 处理有 value 的参数</span></span><br><span class="line">      <span class="keyword">let</span> [key, val] = param.split(<span class="string">'='</span>); <span class="comment">// 分割 key 和 value</span></span><br><span class="line">      val = <span class="built_in">decodeURIComponent</span>(val); <span class="comment">// 解码</span></span><br><span class="line">      val = <span class="regexp">/^\d+$/</span>.test(val) ? <span class="built_in">parseFloat</span>(val) : val; <span class="comment">// 判断是否转为数字</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (paramsObj.hasOwnProperty(key)) &#123; <span class="comment">// 如果对象有 key，则添加一个值</span></span><br><span class="line">        paramsObj[key] = [].concat(paramsObj[key], val);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123; <span class="comment">// 如果对象没有这个 key，创建 key 并设置值</span></span><br><span class="line">        paramsObj[key] = val;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 处理没有 value 的参数</span></span><br><span class="line">      paramsObj[param] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paramsObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         <div id="busuanzi_container_page_pv" style="text-align: right; color: #999; display: block">
@@ -456,6 +457,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">后端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
@@ -464,15 +473,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -481,6 +482,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,10 +542,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">跨域</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">后端</a>
               </li>
              
               <li class="article-tag-list-item">
