@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://shijunnan.com">
   <title>flex布局属性详解之容器属性篇 | Benjamin&#39;s farmland</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文在我的csdn博客上同步更新：http://blog.csdn.net/sjn0503/article/details/73472961 Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器">
+  <meta name="description" content="本文在我的csdn博客上同步更新：http://blog.csdn.net/sjn0503/article/details/73472961 Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器=">
 <meta name="keywords" content="程序,css,前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flex布局属性详解之容器属性篇">
 <meta property="og:url" content="http://shijunnan.com/2017/10/16/flex布局属性详解之容器属性篇/index.html">
 <meta property="og:site_name" content="Benjamin&#39;s farmland">
-<meta property="og:description" content="本文在我的csdn博客上同步更新：http://blog.csdn.net/sjn0503/article/details/73472961 Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器">
+<meta property="og:description" content="本文在我的csdn博客上同步更新：http://blog.csdn.net/sjn0503/article/details/73472961 Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器=">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/lotus-leaf.jpeg">
 <meta property="og:image" content="http://img.blog.csdn.net/20170626213300321?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2puMDUwMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170626213939041?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2puMDUwMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170627095605797?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2puMDUwMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170627095949452?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2puMDUwMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-16T02:25:42.000Z">
+<meta property="og:updated_time" content="2018-06-25T02:13:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flex布局属性详解之容器属性篇">
-<meta name="twitter:description" content="本文在我的csdn博客上同步更新：http://blog.csdn.net/sjn0503/article/details/73472961 Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器">
+<meta name="twitter:description" content="本文在我的csdn博客上同步更新：http://blog.csdn.net/sjn0503/article/details/73472961 Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器=">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/lotus-leaf.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="Benjamin&#39;s farmland" type="application/atom+xml">
@@ -187,7 +187,7 @@
         <p><img src="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/lotus-leaf.jpeg" alt=""></p>
 <p>本文在我的csdn博客上同步更新：<a href="http://blog.csdn.net/sjn0503/article/details/73472961" target="_blank" rel="noopener">http://blog.csdn.net/sjn0503/article/details/73472961</a></p>
 <p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
-<p>如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器</p>
+<p>如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器=</p>
 <a id="more"></a>
 <p>采用Flex布局的元素，称为Flex容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”。</p>
 <h2 id="属性列表"><a href="#属性列表" class="headerlink" title="属性列表"></a>属性列表</h2><p>关于flex布局，有12个属性， 其中6个设置在容器上，6个设置在项目上。</p>
@@ -548,7 +548,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,14 +565,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,6 +601,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
               <li class="article-tag-list-item">

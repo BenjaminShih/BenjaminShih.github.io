@@ -155,6 +155,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-vue源码解读之视图更新" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/31/vue源码解读之视图更新/">vue源码解读之视图更新</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/31/vue源码解读之视图更新/" class="archive-article-date">
+  	<time datetime="2017-10-31T06:29:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>视图更新大致可以分成三个部分：</p>
+<ol>
+<li><p>初始化options 在生命周期函数beforeCreate和created之间，运行初始化方法initState()， 在此方法中对data,props,computed等属性添加数据监听</p>
+</li>
+<li><p>然后初始化到最后$mouted()方法中,在生命周期beforeMounted到mounted期间，对vm设置好Watcher，添加好state 触发 setter时的执行方法</p>
+</li>
+<li><p>state变化触发更新视图</p>
+</li>
+</ol>
+        
+          <a class="article-more-a" href="/2017/10/31/vue源码解读之视图更新/#more">more >></a>
+        
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/31/vue源码解读之视图更新/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-vue源码解读(五)之虚拟DOM-create" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -841,7 +931,7 @@
         <p><img src="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/lotus-leaf.jpeg" alt=""></p>
 <p>本文在我的csdn博客上同步更新：<a href="http://blog.csdn.net/sjn0503/article/details/73472961" target="_blank" rel="noopener">http://blog.csdn.net/sjn0503/article/details/73472961</a></p>
 <p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
-<p>如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器</p>
+<p>如果只需要适配现代浏览器，对于移动端h5开发，简直是布局的神兵利器=</p>
         
           <a class="article-more-a" href="/2017/10/16/flex布局属性详解之容器属性篇/#more">more >></a>
         
@@ -875,89 +965,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/10/16/flex布局属性详解之容器属性篇/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-移动端列表表头fix布局的改进" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/12/移动端列表表头fix布局的改进/">移动端列表表头fix布局的改进</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/12/移动端列表表头fix布局的改进/" class="archive-article-date">
-  	<time datetime="2017-10-12T12:10:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/little-cat.jpeg" alt=""></p>
-<p>以前在做PC端开发的时候，经常会使用position: fix来做一些固定于窗口位置的一些页面功能，比如全局居中的提示框和模态框，或者是页头页脚等等~但是在移动端做的时候长了就会发现，我们要在一些场合避免使用fix布局，就目前来看，主要有以下两个原因：<br>
-        
-          <a class="article-more-a" href="/2017/10/12/移动端列表表头fix布局的改进/#more">more >></a>
-        
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/12/移动端列表表头fix布局的改进/">展开全文 >></a>
         </p>
       
       
@@ -1104,7 +1111,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1113,14 +1128,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1157,6 +1164,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
               <li class="article-tag-list-item">

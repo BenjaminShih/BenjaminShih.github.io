@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shijunnan.com">
-  <title>Archives: 2018/5 | Benjamin&#39;s farmland</title>
+  <title>从0搭建react开发环境 | Benjamin&#39;s farmland</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Benjamin&#39;s farmland">
-<meta property="og:url" content="http://shijunnan.com/archives/2018/05/index.html">
+  <meta name="description" content="技术栈前端：react + react-router + redux后端：node + koa2 + mongo打包：webpack语言标准：es6js编译器：babel注释规范：jsDoc 1. 新建初始化项目文件123mkdir react-gallerycd react-gallerynpm init 文件夹里就一个package.json 接下来创建文件目录 因为是前后端分离，我们先将项">
+<meta name="keywords" content="程序,前端,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从0搭建react开发环境">
+<meta property="og:url" content="http://shijunnan.com/2018/06/25/从0搭建react开发环境/index.html">
 <meta property="og:site_name" content="Benjamin&#39;s farmland">
+<meta property="og:description" content="技术栈前端：react + react-router + redux后端：node + koa2 + mongo打包：webpack语言标准：es6js编译器：babel注释规范：jsDoc 1. 新建初始化项目文件123mkdir react-gallerycd react-gallerynpm init 文件夹里就一个package.json 接下来创建文件目录 因为是前后端分离，我们先将项">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-26T06:27:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Benjamin&#39;s farmland">
+<meta name="twitter:title" content="从0搭建react开发环境">
+<meta name="twitter:description" content="技术栈前端：react + react-router + redux后端：node + koa2 + mongo打包：webpack语言标准：es6js编译器：babel注释规范：jsDoc 1. 新建初始化项目文件123mkdir react-gallerycd react-gallerynpm init 文件夹里就一个package.json 接下来创建文件目录 因为是前后端分离，我们先将项">
   
     <link rel="alternative" href="/atom.xml" title="Benjamin&#39;s farmland" type="application/atom+xml">
   
@@ -153,36 +158,80 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-从0搭建react开发环境" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/18/实现一个简单的虚拟dom渲染/" class="archive-article-date">
-  	<time datetime="2018-05-18T02:36:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-18</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/18/实现一个简单的虚拟dom渲染/">实现一个简单的虚拟dom渲染</a>
+    <h1 class="article-title" itemprop="name">
+      从0搭建react开发环境
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/06/25/从0搭建react开发环境/" class="archive-article-date">
+  	<time datetime="2018-06-25T02:14:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p>前端：react + react-router + redux<br>后端：node + koa2 + mongo<br>打包：webpack<br>语言标准：es6<br>js编译器：babel<br>注释规范：jsDoc</p>
+<h2 id="1-新建初始化项目文件"><a href="#1-新建初始化项目文件" class="headerlink" title="1. 新建初始化项目文件"></a>1. 新建初始化项目文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir react-gallery</span><br><span class="line">cd react-gallery</span><br><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<p>文件夹里就一个package.json</p>
+<p>接下来创建文件目录</p>
+<p>因为是前后端分离，我们先将项目大体分成client和server两大块来管理</p>
+<p>server文件夹下新建index.js入口文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd server</span><br><span class="line">touch index.js</span><br></pre></td></tr></table></figure>
+<p>打开index.js, 利用koa来启动启动一个服务</p>
+<p>由于我们要使用ES6语法和Promise等全局变量进行便捷开发，我们先安装各类babel相关的包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 在没有任何配置选项的情况下，babel-preset-env 与 babel-preset-latest（或者babel-preset-es2015，babel-preset-es2016和babel-preset-es2017一起）的行为完全相同。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">npm install --save-dev babel-preset-env</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。</span><br><span class="line"></span><br><span class="line">// 举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。</span><br><span class="line"></span><br><span class="line">npm install --save-dev babel-polyfill</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 该 preset 包含以下插件：</span><br><span class="line">// transform-do-expressions</span><br><span class="line">// transform-function-bind</span><br><span class="line">// 以及所有来自以下 preset 的插件：</span><br><span class="line">// preset-stage-1</span><br><span class="line">// preset-stage-2</span><br><span class="line">// preset-stage-3</span><br><span class="line"></span><br><span class="line">npm install --save-dev babel-preset-stage-0</span><br><span class="line"></span><br><span class="line">// 一个使用 Babel 的方法是通过 require 钩子。 require 钩子会将自己绑定到 node 的 require 上并自动编译文件</span><br><span class="line">npm install babel-register --save-dev</span><br></pre></td></tr></table></figure>
+<p>根目录新建并配置babel文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// '~/.babelrc'</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"presets"</span>:[</span><br><span class="line">        <span class="string">"env"</span>, </span><br><span class="line">        <span class="string">"stage-0"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"plugins"</span>: [</span><br><span class="line">        <span class="comment">// 此处添加插件</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>server文件夹新建应用文件app.js, 安装koa框架</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> ctx =&gt; &#123;</span><br><span class="line">    ctx.body = <span class="string">'hello world'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<p>入口文件处添加babel编译，并且启动app</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// '~server/index.js'</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">require</span>(<span class="string">'babel-polyfill'</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 加载app</span></span><br><span class="line"> <span class="built_in">require</span>(<span class="string">'./app'</span>)</span><br></pre></td></tr></table></figure>
+<p>此时在终端键入 node server/index.js 再访问 <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000/</a> 已经可以看到我们正常配置了babel并且已经可以启动服务了</p>
+<p></p>
+
+        <div id="busuanzi_container_page_pv" style="text-align: right; color: #999; display: block">
+            本文总阅读量 <span id="busuanzi_value_page_pv"></span>
+        </div>
+      
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://raw.githubusercontent.com/BenjaminShih/markdown-photos/master/github-blog/wechatPay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -196,52 +245,127 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://shijunnan.com/2018/06/25/从0搭建react开发环境/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/01/js深拷贝和浅拷贝/" class="archive-article-date">
-  	<time datetime="2018-05-01T01:52:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/24/Unexpected-end-of-JSON-input-while-parsing-near错误解决办法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Unexpected end of JSON input while parsing near错误解决办法</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/01/js深拷贝和浅拷贝/">js深拷贝和浅拷贝</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://shijunnan.com/2018/06/25/从0搭建react开发环境/",
+  owner: 'BenjaminShih',
+  repo: 'BenjaminShih.github.io',
+  oauth: {
+    client_id: '2957071374c5019e1bdc',
+    client_secret: '614f44a3a2f14cbaffdf2317c3960b9894377016',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -265,8 +389,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
