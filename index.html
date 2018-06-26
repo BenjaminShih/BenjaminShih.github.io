@@ -176,27 +176,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p>前端：react + react-router + redux<br>后端：node + koa2 + mongo<br>打包：webpack<br>语言标准：es6<br>js编译器：babel<br>注释规范：jsDoc</p>
-<h2 id="1-新建初始化项目文件"><a href="#1-新建初始化项目文件" class="headerlink" title="1. 新建初始化项目文件"></a>1. 新建初始化项目文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir react-gallery</span><br><span class="line">cd react-gallery</span><br><span class="line">npm init</span><br></pre></td></tr></table></figure>
-<p>文件夹里就一个package.json</p>
-<p>接下来创建文件目录</p>
-<p>因为是前后端分离，我们先将项目大体分成client和server两大块来管理</p>
-<p>server文件夹下新建index.js入口文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd server</span><br><span class="line">touch index.js</span><br></pre></td></tr></table></figure>
-<p>打开index.js, 利用koa来启动启动一个服务</p>
-<p>由于我们要使用ES6语法和Promise等全局变量进行便捷开发，我们先安装各类babel相关的包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 在没有任何配置选项的情况下，babel-preset-env 与 babel-preset-latest（或者babel-preset-es2015，babel-preset-es2016和babel-preset-es2017一起）的行为完全相同。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">npm install --save-dev babel-preset-env</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。</span><br><span class="line"></span><br><span class="line">// 举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。</span><br><span class="line"></span><br><span class="line">npm install --save-dev babel-polyfill</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 该 preset 包含以下插件：</span><br><span class="line">// transform-do-expressions</span><br><span class="line">// transform-function-bind</span><br><span class="line">// 以及所有来自以下 preset 的插件：</span><br><span class="line">// preset-stage-1</span><br><span class="line">// preset-stage-2</span><br><span class="line">// preset-stage-3</span><br><span class="line"></span><br><span class="line">npm install --save-dev babel-preset-stage-0</span><br><span class="line"></span><br><span class="line">// 一个使用 Babel 的方法是通过 require 钩子。 require 钩子会将自己绑定到 node 的 require 上并自动编译文件</span><br><span class="line">npm install babel-register --save-dev</span><br></pre></td></tr></table></figure>
-<p>根目录新建并配置babel文件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// '~/.babelrc'</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"presets"</span>:[</span><br><span class="line">        <span class="string">"env"</span>, </span><br><span class="line">        <span class="string">"stage-0"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"plugins"</span>: [</span><br><span class="line">        <span class="comment">// 此处添加插件</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>server文件夹新建应用文件app.js, 安装koa框架</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> ctx =&gt; &#123;</span><br><span class="line">    ctx.body = <span class="string">'hello world'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-<p>入口文件处添加babel编译，并且启动app</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// '~server/index.js'</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">require</span>(<span class="string">'babel-polyfill'</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 加载app</span></span><br><span class="line"> <span class="built_in">require</span>(<span class="string">'./app'</span>)</span><br></pre></td></tr></table></figure>
-<p>此时在终端键入 node server/index.js 再访问 <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000/</a> 已经可以看到我们正常配置了babel并且已经可以启动服务了</p>
-<p></p>
-
-        <div id="busuanzi_container_page_pv" style="text-align: right; color: #999; display: block">
-            本文总阅读量 <span id="busuanzi_value_page_pv"></span>
-        </div>
+        
+          <a class="article-more-a" href="/2018/06/25/从0搭建react开发环境/#more">more >></a>
+        
       
       
     </div>
@@ -1154,10 +1136,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">项目</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
@@ -1167,6 +1145,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
              
               <li class="article-tag-list-item">
